@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "assetBundlePatterns": [
+      "assets/*",
+      "**/*.bin"
+    ],
+    "name": "har",
+    "slug": "har"
+  } 
+}
