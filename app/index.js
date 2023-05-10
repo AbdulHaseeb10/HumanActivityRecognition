@@ -1,18 +1,18 @@
-import { View,Text,SafeAreaView } from "react-native";
-import MainActivity from "./MainActivity";
+import { SafeAreaView } from "react-native";
+import FileReading from "./FileReading";
 import { Stack,useRouter } from "expo-router";
 const Home = ()=>{
     return(
         <SafeAreaView>
             <Stack.Screen
             options={{
-                headerStyle:{backgroundColor:"grey"},
+                headerStyle:{backgroundColor:"#246EE0"},
                 headerShadowVisible:false,
-                headerTitle:"HAR"
+                headerTitle:"Human Activity Recognition"
             }
             }
             />
-            <MainActivity/>
+            <FileReading/>
         </SafeAreaView>
     )
 }

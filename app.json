@@ -9,6 +9,9 @@
       "**/*.bin"
     ],
     "name": "har",
-    "slug": "har"
-  } 
+    "slug": "har",
+    "android": {
+      "package": "com.har"
+    }
+  }
 }

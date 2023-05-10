@@ -1,125 +1,171 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
-import { Accelerometer, Gyroscope, Magnetometer } from 'expo-sensors';
-import ActivityClassifier from './ActivityClassifier';
+// import React, { useState, useEffect } from 'react';
+// import { Text, View } from 'react-native';
+// import { Accelerometer } from 'expo-sensors';
+// import ActivityClassifier from './ActivityClassifier';
 
-let ax=[],ay=[],az=[];
-let gx=[],gy=[],gz=[];
-let mx=[],my=[],mz=[];
+// export default function MainActivity() {
+//   const [accArray, setAccArray] = useState([]);
+//   const [subscription, setSubscription] = useState(null);
 
-  const Ax = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const Ay = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const Az = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
+//   useEffect(() => {
+//     // Subscribe to accelerometer updates
+//     setSubscription(Accelerometer.addListener((accData) => {
+//       // Push new data into array
+//       const newAccArray = [...accArray, [accData.x, accData.y, accData.z]];
+//       setAccArray(newAccArray);
+
+//       // If we have collected 80 arrays, send to other component and clear accArray
+//       if (newAccArray.length === 80) {
+//         SendAccDataToComponent(newAccArray);
+//         setAccArray([]);
+//       }
+//     }));
+
+//     // Unsubscribe when component is unmounted
+//     return () => {
+//       subscription && subscription.remove();
+//     };
+//   }, []);
+
+//   const SendAccDataToComponent = (data) => {
+//     // Do something with the data
+//     console.log(data);
+//     return(
+//       <ActivityClassifier accelerometerData={data}/>
+//     )
+//   };
+
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//      <Text>Main Activity</Text>
+//     </View>
+//   );
+// }
 
 
-  const bx = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const by = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const bz = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
+// import React, { useState, useEffect } from 'react';
+// import { Text, View } from 'react-native';
+// import { Accelerometer } from 'expo-sensors';
+// import ActivityClassifier from './ActivityClassifier';
 
+// let sendData;
+// let arr=[];
+// export default function MainActivity() {
+//   const [accArray, setAccArray] = useState([]);
+//   const [activityData, setActivityData] = useState(null);
+//   const [subscription, setSubscription] = useState(null);
+
+//   useEffect(() => {
+//     // Subscribe to accelerometer updates
+//     setSubscription(Accelerometer.addListener((accData) => {
+//       // Push new data into array
+//       const newAccArray = [...accArray, [accData.x, accData.y, accData.z]];
+//       arr.push([accData.x, accData.y, accData.z])
+//       if (arr.length === 80) {
+//         // console.log(arr);
+//         SendAccDataToComponent(arr);
+//         setAccArray([]);
+//       } else {
+//         setAccArray(newAccArray);
+//       }
+//     }));
   
-  const cx = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const cy = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
-  const cz = [0.256, -0.876, -0.554, 0.123, 0.756, -0.324, -0.678, 0.876, -0.456, 0.987, -0.654, -0.321, 0.567, -0.789, 0.345, -0.432, -0.987, 0.123, 0.678, -0.567, 0.890, -0.098, 0.456, -0.345, -0.234, 0.567, -0.789, 0.876, -0.654, 0.321, -0.432, 0.789, -0.567, -0.123, 0.678, -0.987, 0.234, -0.789, 0.567, -0.456, -0.321, 0.876, -0.098, 0.345, -0.567, 0.890, -0.654, -0.234, 0.876, -0.789, 0.456, -0.678, 0.321, -0.123, 0.567, -0.987, 0.123, -0.432, 0.789, -0.345, -0.456, 0.890, -0.678, 0.987, -0.098, -0.567, 0.234, 0.876, -0.789, 0.456, -0.321, 0.567, -0.234, -0.678, 0.789, -0.456, 0.987, -0.321, 0.234, -0.567, 0.890, -0.654, 0.123, -0.987, 0.345, -0.789, 0.567, -0.432, 0.098, -0.876, 0.321, -0.567, 0.234, -0.789, 0.890, -0.098, 0.567, -0.456, 0.678, -0.123, -0.987, 0.876, -0.234, 0.789, -0.345, 0.456, -0.567, -0.321, 0.890, -0.098, 0.234]
+//     // Unsubscribe when component is unmounted
+//     return () => {
+//       subscription && subscription.remove();
+//     };
+//   }, []);
+  
+//   const SendAccDataToComponent = (data) => {
+//     // Do something with the data
+//     // console.log(data);
+//     // if (data.length===80)
+//     // setActivityData(data);
+//     sendData = data;
+//   };
 
-  let data=[];
-  data.push(Ax);
-  data.push(Ay);
-  data.push(Az);
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Main Activity</Text>
+//       {sendData && <ActivityClassifier accelerometerData={sendData}/>}
+//     </View>
+//   );
+// }
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Accelerometer } from 'expo-sensors';
+import * as FileSystem from 'expo-file-system';
 
-  data.push(Ax);
-  data.push(Ay);
-  data.push(Az);
-
-  data.push(Ax);
-  data.push(Ay);
-  data.push(Az);
-
-
-
-const SensorExample = ({ sensorType }) => {
-  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+const AccelerometerDataRecorder = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const [data, setData] = useState([]);
+  const [subscription, setSubscription] = useState(null);
 
   useEffect(() => {
-    let subscription = null;
-    switch (sensorType) {
-      case 'accelerometer':
-        subscription = Accelerometer.addListener(newData => {
-          ax.push(newData.x)
-          ay.push(newData.y)
-          az.push(newData.z)
-          setData(newData);
-        });
-        break;
-      case 'gyroscope':
-        subscription = Gyroscope.addListener(newData => {
-          gx.push(newData.x)
-          gy.push(newData.y)
-          gz.push(newData.z)
-          setData(newData);
-        });
-        break;
-      case 'magnetometer':
-        subscription = Magnetometer.addListener(newData => {
-          mx.push(newData.x)
-          my.push(newData.y)
-          mz.push(newData.z)
-          setData(newData);
-        });
-        break;
-      default:
-        break;
-    }
+    const accelerometer = Accelerometer;
+    setSubscription(
+      accelerometer.addListener(({ x, y, z }) => {
+        if (isRecording) {
+          setData(prevData => [...prevData, [x, y, z]]);
+        }
+      })
+    );
 
     return () => {
-      if (subscription) {
-        subscription.remove();
-      }
-      ax=[],ay=[],az=[]
-       gx=[],gy=[],gz=[]
-       mx=[],my=[],mz=[]
+      subscription && subscription.remove();
     };
-  }, [sensorType]);
+  }, [isRecording]);
 
-  const { x, y, z } = data;
-  return (
-    <View>
-      <View>
-      <Text style={{padding:10, fontSize:15, color:"grey"}}>X: {x}</Text>
-      <Text style={{padding:10, fontSize:15, color:"grey"}}>Y: {y}</Text>
-      <Text style={{padding:10, fontSize:15, color:"grey"}}>Z: {z}</Text>
-    </View>
-    </View>
-  );
-};
+  const handleStartRecording = () => {
+    setIsRecording(true);
+  };
 
-const App = () => {
-  const [isGenerating, setIsGenerating] = useState(false);
+  const handleStopRecording = async () => {
+    setIsRecording(false);
+    const csvData = data.map(row => row.join(',')).join('\n');
+    const filePath = `${FileSystem.documentDirectory}activity1.csv`;
 
-  const toggleGenerating = () => {
-    setIsGenerating(prevState => !prevState);
+    try {
+      await FileSystem.writeAsStringAsync(filePath, csvData);
+      console.log('Data saved to file:', filePath);
+    } catch (error) {
+      console.error('Failed to save data to file:', error);
+    }
   };
 
   return (
-    <View>
-      <ActivityClassifier/>
-      <Button title={isGenerating ? "Stop" : "Start"} onPress={toggleGenerating} />
-      {isGenerating && (
-        <>
-          <View>
-      <Text style={{fontSize:25,margin:10}} >Accelerometer:</Text>
-      <SensorExample sensorType="accelerometer" />
-
-      <Text style={{fontSize:25,margin:10}}>Gyroscope:</Text>
-      <SensorExample sensorType="gyroscope" />
-
-      <Text style={{fontSize:25,margin:10}}>Magnetometer:</Text>
-      <SensorExample sensorType="magnetometer" />
-    </View>
-        </>
-      )}
-      {console.log("ax ay az\ngx gy gz\nmx my mz",az,ay,az,gx,gy,gz,mx,my,mz)}
+    <View >
+      <TouchableOpacity
+        onPress={isRecording ? handleStopRecording : handleStartRecording}
+      >
+        <Text>
+          {isRecording ? 'Stop Recording' : 'Start Recording'}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#2196F3',
+    padding: 10,
+    borderRadius: 5,
+  },
+  recording: {
+    backgroundColor: '#FF0000',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+export default AccelerometerDataRecorder;
+
+
