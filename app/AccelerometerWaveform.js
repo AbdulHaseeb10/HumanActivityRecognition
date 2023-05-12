@@ -72,7 +72,7 @@
     subHeading:{
         fontFamily:"Poppins",
         color:"#1D1CE5",
-        fontSize:15
+        fontSize:20
     }
     });
 

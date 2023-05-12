@@ -12,7 +12,7 @@ const AccelerometerDataRecorder = () => {
 
   const styles = StyleSheet.create({
     heading: {
-      fontSize: 23,
+      fontSize: 25,
       textAlign: "center",
       paddingTop: 50,
       padding: 5,
@@ -31,7 +31,7 @@ const AccelerometerDataRecorder = () => {
     },
     butText: {
       color: "#ffff",
-      fontSize: 18,
+      fontSize: 19,
       fontWeight: 600,
       fontFamily: "Poppins",
     },
@@ -79,7 +79,7 @@ const AccelerometerDataRecorder = () => {
       fontSize: 15,
     },
     scrollContainer:{
-      marginBottom:20
+      marginBottom:10
     }
   });
 
@@ -170,6 +170,46 @@ const AccelerometerDataRecorder = () => {
         <ScrollView style={styles.scrollContainer}>
           <Text style={styles.heading}>Recorded Results </Text>
 
+
+
+
+
+              {isRecording&& 
+                  <View>
+
+                  <View style={styles.subComponent}>
+                    <Text style={styles.subHeading}>KNN model</Text>
+                  </View>
+
+                  <View style={styles.subComponent}>
+                    <Text style={styles.subHeading}>Decison Tree model</Text>
+                    
+                  </View>
+
+                  <View style={styles.subComponent}>
+                    <Text style={styles.subHeading}>LSTM Model</Text>
+                  </View>
+                  </View> }
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {(!isRecording)&&
+          
+          <View>
+
           <View style={styles.subComponent}>
             <Text style={styles.subHeading}>KNN model</Text>
             {prediction !== undefined && RenderModelResults(prediction.knn)}
@@ -185,8 +225,20 @@ const AccelerometerDataRecorder = () => {
             <Text style={styles.subHeading}>LSTM Model</Text>
             {prediction !== undefined && RenderModelResults(prediction.lstm)}
           </View>
+          </View>
 
+          
+          
+          
+          
+          
+          
+          
+          }
+         
           <View>{isRecording && <AccelerometerWaveform />}</View>
+          {/* <View>{isRecording && <Image style={{width:300,height:200}} source={require('./assets/bg.jpg')} />}</View> */}
+
         </ScrollView>
       </View>
     </View>
