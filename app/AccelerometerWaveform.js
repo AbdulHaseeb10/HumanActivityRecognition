@@ -30,6 +30,7 @@
 
     return (
         <View style={styles.container}>
+            <Text style={styles.subHeading}>Acceloremeter Readings</Text>
         <View style={[styles.waveform, { height: (waveformHeight*1.6) }]}>
             <Text style={styles.label}>X</Text>
             <View style={[styles.waveformBar,{backgroundColor:"#FF1E00"}, { height: waveformX *1.6}]} />
@@ -48,13 +49,14 @@
         label:{
             fontFamily:'Poppins',
             fontSize:17,
-            color:"#1D1CE5",
+            color:"#1D1CE5  ",
             fontWeight:"bold"
         },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop:10
     },
     waveform: {
         flexDirection: 'row',
@@ -67,6 +69,11 @@
         marginHorizontal: 10,
         
     },
+    subHeading:{
+        fontFamily:"Poppins",
+        color:"#1D1CE5",
+        fontSize:15
+    }
     });
 
     export default AccelerometerWaveform;
