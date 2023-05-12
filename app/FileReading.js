@@ -175,6 +175,14 @@ const AccelerometerDataRecorder = () => {
 
 
           </View>
+
+          <View style={styles.subComponent}>
+
+            <Text style={styles.subHeading}>LSTM Model</Text>
+              {prediction!==undefined&&RenderModelResults(prediction.lstm)}
+
+
+          </View>
      
 
       </View> 
