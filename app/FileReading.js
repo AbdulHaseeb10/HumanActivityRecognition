@@ -3,13 +3,85 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StyleSheet,
+  Image
 } from "react-native";
 import { Accelerometer } from "expo-sensors";
+import { color } from "react-native-reanimated";
 let prediction;
 const AccelerometerDataRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [data, setData] = useState([]);
   const [subscription, setSubscription] = useState(null);
+
+
+
+  const styles= StyleSheet.create({
+    heading:{
+      fontSize: 26,
+       textAlign: 'center',
+       paddingTop:50,
+       fontWeight:600,
+       color:"#362FD9"
+    },
+    recordingButton:{
+      alignItems: "center",
+            justifyContent: "center",
+            width: 170,
+            height: 60,
+            borderRadius: 10,
+            backgroundColor: "#19A7CE",
+            marginTop:50,
+
+    },
+    butText:{
+      color:"#DAF5FF",
+      fontSize:18,
+      fontWeight:600
+    },
+    container: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    column1: {
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor:"red"
+    },
+    column2: {
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor:"blue",
+      color:"#fff"
+    },
+    headingCats: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    subComponent:{
+      margin:12
+    },
+    image: {
+      width: 200,
+      height: 200,
+      alignItems:"center",
+      justifyContent:"center"
+    },
+    subHeading:{
+
+      fontSize:20,
+      color:"#19A7CE"
+
+    }
+  })
+
+  
+
+
+
 
   useEffect(() => {
     const accelerometer = Accelerometer;
@@ -69,18 +141,55 @@ const AccelerometerDataRecorder = () => {
   }
 
   return (
+    <View style={{backgroundColor:"#ffff"}}>
     <View>
+    <View style={{alignItems:"center",justifyContent:"center"}}>
+            <Text style={styles.heading}>"Smartphone Sensor-Based Human Activity Recognition: KNN and Decision Tree Approach"</Text>
+
       <TouchableOpacity
-        style={{display: 'flex',alignItems: 'center',justifyContent: 'center',width:100,height:50,margin:5,backgroundColor:'grey'}}
+        style={styles.recordingButton}
         onPress={isRecording ? handleStopRecording : handleStartRecording}
       >
-        <Text>{isRecording ? "Stop Recording" : "Start Recording"}</Text>
+        <Text style={styles.butText}>{isRecording ? "Stop Recording" : "Start Recording"}</Text>
       </TouchableOpacity>
-      <Text style={{fontSize:15,color:'red'}}>KNN model</Text>
-      {prediction!==undefined&&RenderModelResults(prediction.knn)}
-      <Text style={{fontSize:15,color:'green'}}>Decison Tree model</Text>
-      {prediction!==undefined&&RenderModelResults(prediction.decisionTree)}
+      </View>
+
+
+
+       <View >
+
+       <Text style={styles.heading}>Recorded Results </Text>
+
+
+          <View style={styles.subComponent}>
+
+              <Text style={styles.subHeading}>KNN model</Text>
+                {prediction!==undefined&&RenderModelResults(prediction.knn)}
+
+           </View>
+      
+          <View style={styles.subComponent}>
+
+            <Text style={styles.subHeading}>Decison Tree model</Text>
+              {prediction!==undefined&&RenderModelResults(prediction.decisionTree)}
+
+
+          </View>
+     
+
+      </View> 
+
+      
+      
+
+
+      
+     
     </View>
+    <View >
+    <Image source={require('./assets/bg.jpg')} style={styles.image} />
+  </View>
+  </View>
   );
 };
 
