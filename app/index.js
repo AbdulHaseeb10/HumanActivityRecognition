@@ -1,12 +1,20 @@
+import {useEffect} from "react"
 import { SafeAreaView ,Text} from "react-native";
 import FileReading from "./FileReading";
 import { Stack,useRouter } from "expo-router";
+import { loadFonts } from "../expo-font";
+
 const Home = ()=>{
+
+  // useEffect(() => {
+  //   loadFonts();
+  // }, []);
+
     return(
         <SafeAreaView>
            <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: "#DEFCF9" },
+          headerStyle: { backgroundColor: "#362FD9" },
           headerShadowVisible: false,
           headerTitle: () => (
             <Text
@@ -15,7 +23,7 @@ const Home = ()=>{
                 textAlign: "center",
                 fontFamily: "Poppins",
                 fontSize: 20,
-                color: "#362FD9",
+                color: "#ffff",
               }}
             >
               Human Activity Recognition
