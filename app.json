@@ -12,6 +12,14 @@
     "slug": "har",
     "android": {
       "package": "com.har"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cf54f335-2cb1-43cc-9800-9ace885dc738"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.har"
     }
   }
 }

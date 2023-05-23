@@ -3,21 +3,13 @@ import { SafeAreaView ,Text} from "react-native";
 import FileReading from "./FileReading";
 import { Stack,useRouter } from "expo-router";
 import { loadFonts } from "../expo-font";
+import RecordData from './RecordData';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
 const Home = ()=>{
-
-
-
-
-
-
-  // useEffect(() => {
-  //   loadFonts();
-  // }, []);
         
   const [fontsLoaded,error] = useFonts({
     Poppins: require('./assets/fonts/poppinsmed.ttf'),
@@ -50,8 +42,9 @@ const Home = ()=>{
             <Text
               style={{
                 flex: 1,
-                textAlign: "center",
+                // textAlign: "center",
                 fontFamily: 'Poppins',
+                // justifyContent: 'center',
                 fontSize: 25,
                 color: "#ffff",
               }}
@@ -63,6 +56,7 @@ const Home = ()=>{
       />
       
             <FileReading/>
+            {/* <RecordData/> */}
         </SafeAreaView>
     )
 }
