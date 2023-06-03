@@ -1,23 +1,19 @@
-import {useEffect,useCallback} from "react"
-import { SafeAreaView ,Text} from "react-native";
-import FileReading from "./FileReading";
-import { Stack,useRouter } from "expo-router";
-import { loadFonts } from "../expo-font";
-import RecordData from './RecordData';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from "react";
+import { SafeAreaView, Text } from "react-native";
+import ActivityClassifier from "./ActivityClassifier";
+import { Stack } from "expo-router";
+import RecordData from "./RecordData";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
-const Home = ()=>{
-        
-  const [fontsLoaded,error] = useFonts({
-    Poppins: require('./assets/fonts/poppinsmed.ttf'),
-    PoppinsLg: require('./assets/fonts/PoppinsRegular.ttf')
-
+const Home = () => {
+  const [fontsLoaded, error] = useFonts({
+    Poppins: require("./assets/fonts/poppinsmed.ttf"),
+    PoppinsLg: require("./assets/fonts/PoppinsRegular.ttf"),
   });
 
- 
   useEffect(() => {
     const hideSplashScreen = async () => {
       if (fontsLoaded) {
@@ -32,9 +28,9 @@ const Home = ()=>{
     return null; // Return a loading screen or component while fonts are being loaded
   }
 
-    return(
-        <SafeAreaView >
-           <Stack.Screen
+  return (
+    <SafeAreaView>
+      <Stack.Screen
         options={{
           headerStyle: { backgroundColor: "#362FD9" },
           headerShadowVisible: false,
@@ -43,7 +39,7 @@ const Home = ()=>{
               style={{
                 flex: 1,
                 // textAlign: "center",
-                fontFamily: 'Poppins',
+                fontFamily: "Poppins",
                 // justifyContent: 'center',
                 fontSize: 25,
                 color: "#ffff",
@@ -54,10 +50,9 @@ const Home = ()=>{
           ),
         }}
       />
-      
-            <FileReading/>
-            {/* <RecordData/> */}
-        </SafeAreaView>
-    )
-}
+
+      <ActivityClassifier />
+    </SafeAreaView>
+  );
+};
 export default Home;
